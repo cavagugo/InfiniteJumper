@@ -51,7 +51,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Bits: 16
-    - _Bits2: 4
+    - _Bits2: 8
     - _BottomOrigin: -0.45
     - _BottomSpread: 21.84
     - _QueueControl: 0
