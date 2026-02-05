@@ -122,11 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &81485194 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2313871115358750065, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
-  m_PrefabInstance: {fileID: 3066196205806778711}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &303750778
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,73 +1023,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8323932e1639d145b7eaae9515b7774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformPrefabs:
-  - {fileID: 2313871115358750065, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
-  - {fileID: 2313871115358750065, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-  _numPlatformsToSpawn: 5
-  _firstPlatform: {fileID: 81485194}
-  _maxDistanceFromCameraBeforeSpawn: 5
-  _minDistanceFromPreviousPlatform: 1.5
-  _maxDistanceFromPreviousPlatform: 3
-  _removeDistanceBelowCamera: 5
-  _initialPoolSize: 20
---- !u!1001 &3066196205806778711
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2313871115358750065, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
-      propertyPath: m_Name
-      value: InitialPlatform
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -3.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
+  platformTypes: []
+  numPlatformsToSpawn: 5
+  firstPlatform: {fileID: 11400000, guid: 61a2b403cd72c5c41ab56896df75e3a2, type: 2}
+  maxDistanceFromCameraBeforeSpawn: 5
+  minDistanceFromPreviousPlatform: 1.5
+  maxDistanceFromPreviousPlatform: 3
+  removeDistanceBelowCamera: 10
+  maxPlatformID: 2
 --- !u!1001 &6175480426472404414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1178,6 +1114,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 867878057}
   - {fileID: 6175480426472404414}
-  - {fileID: 3066196205806778711}
   - {fileID: 1924588569}
   - {fileID: 366524704}

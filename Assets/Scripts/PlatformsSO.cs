@@ -6,8 +6,10 @@ using UnityEngine;
 public class PlatformsSO : ScriptableObject
 {
     [SerializeField] private GameObject prefab;
-    [SerializeField] private int platformLevel; //La rareza de la plataforma (Mientras más alto, más raro)
+    [SerializeField] private int platformRarity; //La rareza de la plataforma (Mientras más alto, más raro)
+    [SerializeField] private int id;//ID del tipo de plataforma (no rareza)
 
-    public int PlatformLevel {  get { return platformLevel; } }
-    public GameObject PlatformPrefab { get { return prefab; } }
+    public int ID { get { return id; } }
+    public int PlatformRarity {  get { return platformRarity; } }
+    public GameObject PlatformPrefab { get { return prefab; } set { prefab = value; } }
 }

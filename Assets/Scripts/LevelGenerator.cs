@@ -6,94 +6,160 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
-    [SerializeField] private List<PlatformsSO> platforms = new List<PlatformsSO>();
-    //[SerializeField] private GameObject[] platformPrefabs;
-    [SerializeField] private int _numPlatformsToSpawn = 5;
-    [SerializeField] private GameObject _firstPlatform;
-    [SerializeField] private float _maxDistanceFromCameraBeforeSpawn = 5f;
-    [SerializeField] private float _minDistanceFromPreviousPlatform = 1.5f;
-    [SerializeField] private float _maxDistanceFromPreviousPlatform = 3f;
-    [SerializeField] private float _removeDistanceBelowCamera = 10f;
-    [SerializeField] private int _initialPoolSize = 20;
-    
+    [SerializeField] private List<PlatformsSO> platformTypes = new List<PlatformsSO>();
+    [SerializeField] private int numPlatformsToSpawn = 5;
+    [SerializeField] private PlatformsSO firstPlatform;
+    [SerializeField] private float maxDistanceFromCameraBeforeSpawn = 5f;
+    [SerializeField] private float minDistanceFromPreviousPlatform = 1.5f;
+    [SerializeField] private float maxDistanceFromPreviousPlatform = 3f;
+    [SerializeField] private float removeDistanceBelowCamera = 10f;
+    [SerializeField] private int maxPlatformID = 0;
 
-    private GameObject _lastSpawnedPlatform;
-    private Queue<GameObject> _platformPool = new Queue<GameObject>();
-    private List<GameObject> _activePlatforms = new List<GameObject>();
-
-
+    private PlatformsSO lastSpawnedPlatform;
+    private Queue<PlatformsSO> platformPool = new Queue<PlatformsSO>();
+    private List<PlatformsSO> activePlatforms = new List<PlatformsSO>();
 
     // Start is called before the first frame update
     void Start()
     {
-        platforms = Resources.LoadAll<PlatformsSO>("Platforms").ToList();
-        _lastSpawnedPlatform = _firstPlatform;
-        _activePlatforms.Add(_firstPlatform);
+        // Crear instancia de la primera plataforma y su SO asociado
+        GameObject firstPlatGO = Instantiate(firstPlatform.PlatformPrefab, new Vector3(0, -3.3f, 0), Quaternion.identity);
+        PlatformsSO firstPlatSO = Instantiate(firstPlatform); // Crear copia del SO
+        firstPlatSO.PlatformPrefab = firstPlatGO; // Asignar la instancia al SO
+        lastSpawnedPlatform = firstPlatSO;
+        activePlatforms.Add(firstPlatSO);
 
-        // Inicializar object pooler
-        for (int i = 0; i < _initialPoolSize; i++)
-        {           
-            GameObject obj = Instantiate(RandomizePlatforms().PlatformPrefab);
-            obj.SetActive(false);
-            _platformPool.Enqueue(obj);
-        }
+        platformTypes = Resources.LoadAll<PlatformsSO>("Platforms").ToList();
+
+        // Inicializar object pool
+        InitializePool();
 
         SpawnPlatforms();
+    }
+
+    private void InitializePool()
+    {
+        for (int i = 0; i < platformTypes.Count; i++)
+        {
+            // Agrego 10 de plataformas básicas
+            if (i == 0)
+            {
+                for (int j = 0; j < 10; j++)
+                {
+                    PlatformsSO plat = Instantiate(platformTypes[i]);
+                    GameObject platPrefab = Instantiate(plat.PlatformPrefab);
+                    plat.PlatformPrefab = platPrefab; // ASIGNAR LA INSTANCIA AL SO
+                    platPrefab.SetActive(false);
+                    platformPool.Enqueue(plat);
+                }
+            }
+            // Agrego 5 de cada plataforma especial
+            else
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    PlatformsSO plat = Instantiate(platformTypes[i]);
+                    GameObject platPrefab = Instantiate(plat.PlatformPrefab);
+                    plat.PlatformPrefab = platPrefab; // ASIGNAR LA INSTANCIA AL SO
+                    platPrefab.SetActive(false);
+                    platformPool.Enqueue(plat);
+                }
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         // Spawnear nuevas plataformas si la cámara sube lo suficiente
-        if ((Camera.main.transform.position.y + _maxDistanceFromCameraBeforeSpawn) > _lastSpawnedPlatform.transform.position.y)
+        if ((Camera.main.transform.position.y + maxDistanceFromCameraBeforeSpawn) > lastSpawnedPlatform.PlatformPrefab.transform.position.y)
         {
             SpawnPlatforms();
         }
 
         // Quitar plataformas si están muy por debajo de la cámara
-        for (int i = _activePlatforms.Count - 1; i >= 0; i--)
+        for (int i = activePlatforms.Count - 1; i >= 0; i--)
         {
-            if (_activePlatforms[i].transform.position.y < Camera.main.transform.position.y - _removeDistanceBelowCamera)
+            if (activePlatforms[i].PlatformPrefab.transform.position.y < Camera.main.transform.position.y - removeDistanceBelowCamera)
             {
-                _activePlatforms[i].SetActive(false);
-                _platformPool.Enqueue(_activePlatforms[i]);
-                _activePlatforms.RemoveAt(i);
+                activePlatforms[i].PlatformPrefab.SetActive(false);
+                platformPool.Enqueue(activePlatforms[i]);
+                activePlatforms.RemoveAt(i);
             }
         }
+    }
+
+    private void SelectPlatforms()
+    {
+        // Este método sigue vacío, ya que la lógica está en SpawnPlatforms(). NOTA: Refactorizar
     }
 
     private void SpawnPlatforms()
     {
-        for (int i = 0; i < _numPlatformsToSpawn; i++)
+        int spawnedCount = 0;
+        int maxAttemptsPerSpawn = 10; // Límite de intentos por selección para evitar loops infinitos
+
+        for (int i = 0; i < numPlatformsToSpawn; i++)
         {
-            if (_platformPool.Count == 0)
-            {                
-                Debug.LogWarning("Platform pooler está vacío.");
-                return;
+            PlatformsSO selectedPlatform = null;
+            int attempts = 0;
+
+            // Intentar seleccionar una plataforma basada en rareza y disponibilidad
+            while (selectedPlatform == null && attempts < maxAttemptsPerSpawn)
+            {
+                // Primero, elegir un ID basado en rareza global
+                int selectedID = RandomizePlatform();
+
+                // Buscar en el pool una plataforma con ese ID y que cumpla ID <= maxPlatformID
+                foreach (var platform in platformPool)
+                {
+                    if (platform.ID == selectedID && platform.ID <= maxPlatformID)
+                    {
+                        selectedPlatform = platform;
+                        break; // Encontramos una coincidencia, salir del foreach
+                    }
+                }
+
+                attempts++;
             }
 
-            GameObject platform = _platformPool.Dequeue();
-            platform.SetActive(true);
+            // Si no se encontró después de intentos, saltar esta selección
+            if (selectedPlatform == null)
+            {
+                Debug.LogWarning($"No se pudo encontrar una plataforma con ID válido después de {maxAttemptsPerSpawn} intentos. Saltando selección.");
+                continue;
+            }
 
-            float distanceToNextPlatform = UnityEngine.Random.Range(_minDistanceFromPreviousPlatform, _maxDistanceFromPreviousPlatform);
+            // Remover del pool
+            platformPool = new Queue<PlatformsSO>(platformPool.Where(p => p != selectedPlatform));
+
+            // Activar y posicionar
+            selectedPlatform.PlatformPrefab.SetActive(true);
+            float distanceToNextPlatform = UnityEngine.Random.Range(minDistanceFromPreviousPlatform, maxDistanceFromPreviousPlatform);
             float xPosition = UnityEngine.Random.Range(-GlobalVariables.xLimit, GlobalVariables.xLimit);
+            Vector2 spawnPosition = new Vector2(xPosition, lastSpawnedPlatform.PlatformPrefab.transform.position.y + distanceToNextPlatform);
+            selectedPlatform.PlatformPrefab.transform.position = spawnPosition;
 
-            Vector2 spawnPosition = new Vector2(xPosition, _lastSpawnedPlatform.transform.position.y + distanceToNextPlatform);
-            platform.transform.position = spawnPosition;
+            lastSpawnedPlatform = selectedPlatform;
+            activePlatforms.Add(selectedPlatform);
+            spawnedCount++;
+        }
 
-            _lastSpawnedPlatform = platform;
-            _activePlatforms.Add(platform);
+        // Log opcional para verificar cuántas se spawnearon
+        if (spawnedCount < numPlatformsToSpawn)
+        {
+            Debug.Log($"Se spawnearon {spawnedCount} plataformas en lugar de {numPlatformsToSpawn}.");
         }
     }
 
-    //Devuelve un tipo de plataforma basado en la rareza de la misma
-    public PlatformsSO RandomizePlatforms()
+    // Devuelve un ID de plataforma basado en rareza global
+    public int RandomizePlatform()
     {
         float totalWeight = 0;
 
-        foreach (var platform in platforms)
+        foreach (var platform in platformTypes)
         {
-            totalWeight += 1f / platform.PlatformLevel;
+            totalWeight += 1f / platform.PlatformRarity;
         }
 
         float randomWeight = UnityEngine.Random.Range(0, totalWeight);
@@ -101,9 +167,9 @@ public class LevelGenerator : MonoBehaviour
         PlatformsSO selectedPlatform = null;
         float cumulativeWeight = 0;
 
-        foreach (var platform in platforms)
+        foreach (var platform in platformTypes)
         {
-            cumulativeWeight += 1f / platform.PlatformLevel;
+            cumulativeWeight += 1f / platform.PlatformRarity;
             if (randomWeight <= cumulativeWeight)
             {
                 selectedPlatform = platform;
@@ -111,6 +177,6 @@ public class LevelGenerator : MonoBehaviour
             }
         }
 
-        return selectedPlatform;
+        return selectedPlatform.ID;
     }
 }

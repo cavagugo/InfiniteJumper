@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: MovingPlatform
   m_EditorClassIdentifier: 
   prefab: {fileID: 2313871115358750065, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-  platformLevel: 3
+  platformRarity: 10
+  id: 1
