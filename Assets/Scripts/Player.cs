@@ -10,7 +10,10 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     public float maxDistanceFromCameraBeforeDeath = 5f;
     private Animator animator;
-    private bool facingRight = true; 
+    private bool facingRight = true;
+
+    //Para seleccionar el input manager
+    [SerializeField] private string horizontalAxis = "Horizontal"; 
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +25,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movement = Input.GetAxis("Horizontal") * speed;
+        // Usa el eje personalizado
+        movement = Input.GetAxis(horizontalAxis) * speed;
 
         // Volteamos el sprite basándonos en la dirección
         if (movement > 0 && !facingRight)
