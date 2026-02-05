@@ -11,7 +11,6 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private float _maxDistanceFromCameraBeforeSpawn = 5f;
     [SerializeField] private float _minDistanceFromPreviousPlatform = 1.5f;
     [SerializeField] private float _maxDistanceFromPreviousPlatform = 3f;
-    [SerializeField] private float _xSpawnRange = 5f;
     [SerializeField] private float _removeDistanceBelowCamera = 10f;
     [SerializeField] private int _initialPoolSize = 20; 
 
@@ -71,7 +70,7 @@ public class LevelGenerator : MonoBehaviour
             platform.SetActive(true);
 
             float distanceToNextPlatform = UnityEngine.Random.Range(_minDistanceFromPreviousPlatform, _maxDistanceFromPreviousPlatform);
-            float xPosition = UnityEngine.Random.Range(-_xSpawnRange, _xSpawnRange);
+            float xPosition = UnityEngine.Random.Range(-GlobalVariables.xLimit, GlobalVariables.xLimit);
 
             Vector2 spawnPosition = new Vector2(xPosition, _lastSpawnedPlatform.transform.position.y + distanceToNextPlatform);
             platform.transform.position = spawnPosition;
