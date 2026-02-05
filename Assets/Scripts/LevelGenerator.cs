@@ -1,33 +1,39 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
-    [SerializeField] private GameObject _platformPrefab;
+    [SerializeField] private List<PlatformsSO> platforms = new List<PlatformsSO>();
+    //[SerializeField] private GameObject[] platformPrefabs;
     [SerializeField] private int _numPlatformsToSpawn = 5;
     [SerializeField] private GameObject _firstPlatform;
     [SerializeField] private float _maxDistanceFromCameraBeforeSpawn = 5f;
     [SerializeField] private float _minDistanceFromPreviousPlatform = 1.5f;
     [SerializeField] private float _maxDistanceFromPreviousPlatform = 3f;
     [SerializeField] private float _removeDistanceBelowCamera = 10f;
-    [SerializeField] private int _initialPoolSize = 20; 
+    [SerializeField] private int _initialPoolSize = 20;
+    
 
     private GameObject _lastSpawnedPlatform;
     private Queue<GameObject> _platformPool = new Queue<GameObject>();
     private List<GameObject> _activePlatforms = new List<GameObject>();
 
+
+
     // Start is called before the first frame update
     void Start()
     {
+        platforms = Resources.LoadAll<PlatformsSO>("Platforms").ToList();
         _lastSpawnedPlatform = _firstPlatform;
-        _activePlatforms.Add(_firstPlatform); 
+        _activePlatforms.Add(_firstPlatform);
 
         // Inicializar object pooler
         for (int i = 0; i < _initialPoolSize; i++)
-        {
-            GameObject obj = Instantiate(_platformPrefab);
+        {           
+            GameObject obj = Instantiate(RandomizePlatforms().PlatformPrefab);
             obj.SetActive(false);
             _platformPool.Enqueue(obj);
         }
@@ -78,5 +84,33 @@ public class LevelGenerator : MonoBehaviour
             _lastSpawnedPlatform = platform;
             _activePlatforms.Add(platform);
         }
+    }
+
+    //Devuelve un tipo de plataforma basado en la rareza de la misma
+    public PlatformsSO RandomizePlatforms()
+    {
+        float totalWeight = 0;
+
+        foreach (var platform in platforms)
+        {
+            totalWeight += 1f / platform.PlatformLevel;
+        }
+
+        float randomWeight = UnityEngine.Random.Range(0, totalWeight);
+
+        PlatformsSO selectedPlatform = null;
+        float cumulativeWeight = 0;
+
+        foreach (var platform in platforms)
+        {
+            cumulativeWeight += 1f / platform.PlatformLevel;
+            if (randomWeight <= cumulativeWeight)
+            {
+                selectedPlatform = platform;
+                break;
+            }
+        }
+
+        return selectedPlatform;
     }
 }

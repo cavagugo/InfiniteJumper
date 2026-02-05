@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e12eade176bd314a8c9f7f368c307f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inspectorXLimit: 0
+  inspectorXLimit: 5
 --- !u!1 &831704101
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,84 +609,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1831025654}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1423394694
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2313871115358750065, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-      propertyPath: m_Name
-      value: MovingPlatform
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 4.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.16
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6789795926878904378, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2313871115358750065, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1423394696}
-  m_SourcePrefab: {fileID: 100100000, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
---- !u!1 &1423394695 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2313871115358750065, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
-  m_PrefabInstance: {fileID: 1423394694}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1423394696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1423394695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 361cf1b38693f574db3b0e7296ee6f7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
 --- !u!1 &1499162664
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,13 +1028,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8323932e1639d145b7eaae9515b7774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _platformPrefab: {fileID: 2313871115358750065, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
+  platformPrefabs:
+  - {fileID: 2313871115358750065, guid: 83daa46087fa241478bdaff7c8e9ff05, type: 3}
+  - {fileID: 2313871115358750065, guid: c4f664579c4a7fe4fac47884d8f1d9f9, type: 3}
   _numPlatformsToSpawn: 5
   _firstPlatform: {fileID: 81485194}
   _maxDistanceFromCameraBeforeSpawn: 5
   _minDistanceFromPreviousPlatform: 1.5
   _maxDistanceFromPreviousPlatform: 3
-  _removeDistanceBelowCamera: 10
+  _removeDistanceBelowCamera: 5
   _initialPoolSize: 20
 --- !u!1001 &3066196205806778711
 PrefabInstance:
@@ -1256,5 +1180,4 @@ SceneRoots:
   - {fileID: 6175480426472404414}
   - {fileID: 3066196205806778711}
   - {fileID: 1924588569}
-  - {fileID: 1423394694}
   - {fileID: 366524704}
