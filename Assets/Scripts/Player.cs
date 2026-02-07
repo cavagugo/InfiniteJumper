@@ -54,12 +54,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        animator.SetBool("rebotar", false);
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        //animator.SetBool("rebotar", true);
+        //animator.SetBool("rebotar", false);
     }
 
     private void Flip()

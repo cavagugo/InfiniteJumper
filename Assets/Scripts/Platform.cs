@@ -14,14 +14,14 @@ public class Platform : MonoBehaviour
         {
             //Hace que el jugador salte con una fuerza constante sin importar desde qué tan alto o bajo caiga
             Rigidbody2D rb = collision.collider.GetComponent<Rigidbody2D>();
-            Animator anim = collision.collider.GetComponent<Animator>();
+            //Animator anim = collision.collider.GetComponent<Animator>();
             if (rb != null)
             {
                 Vector2 velocity = rb.velocity;
                 velocity.y = jumpForce;
                 rb.velocity = velocity;
 
-                anim.SetBool("rebotar", true);
+                //anim.SetBool("rebotar", true);
             }
         }
         

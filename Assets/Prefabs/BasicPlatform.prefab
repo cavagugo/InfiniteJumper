@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5540887459906065759}
   - component: {fileID: 3204173552849607709}
   - component: {fileID: -4295376087223417478}
+  - component: {fileID: 8444953563767158182}
   m_Layer: 6
   m_Name: BasicPlatform
   m_TagString: Untagged
@@ -160,3 +161,16 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
+--- !u!114 &8444953563767158182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2313871115358750065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321b12bb2f14d61479fa62062c4f5937, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boolName: rebotar
