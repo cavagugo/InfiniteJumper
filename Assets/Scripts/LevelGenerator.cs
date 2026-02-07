@@ -12,7 +12,8 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private float maxDistanceFromCameraBeforeSpawn = 5f;
     [SerializeField] private float minDistanceFromPreviousPlatform = 1.5f;
     [SerializeField] private float maxDistanceFromPreviousPlatform = 3f;
-    [SerializeField] private float removeDistanceBelowCamera = 10f;
+    //5f funciona bien para quitar cualquier plataforma que la cámara deje de mostrar
+    [SerializeField] private float removeDistanceBelowCamera = 5f;
     [SerializeField] private int maxPlatformID = 0;
 
     private PlatformsSO lastSpawnedPlatform;
