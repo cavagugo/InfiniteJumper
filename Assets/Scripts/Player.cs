@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -52,10 +51,6 @@ public class Player : MonoBehaviour
         rb.velocity = velocity;
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        //animator.SetBool("rebotar", false);
-    }
 
     private void Flip()
     {
