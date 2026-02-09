@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
+    [SerializeField] GameManager gameManager;
     float movement = 0f;
     public float speed = 10f;
     Rigidbody2D rb;
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour
         if ((transform.position.y + maxDistanceFromCameraBeforeDeath) <= Camera.main.transform.position.y)
         {
             gameObject.SetActive(false);
+            gameManager.GameOver();
             Debug.Log("Perdiste.");
         }
     }

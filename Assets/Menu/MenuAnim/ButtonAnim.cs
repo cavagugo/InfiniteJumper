@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // Necesario si usas componentes de UI, aunque aquí usamos EventTrigger o Animator
+using UnityEngine.UI;
 
 [RequireComponent(typeof(AudioSource))]
 public class ButtonAnim : MonoBehaviour
@@ -16,7 +16,7 @@ public class ButtonAnim : MonoBehaviour
 
     void Awake()
     {
-        // Si no asignaste el Animator en el inspector, intenta buscarlo en el mismo objeto
+        // Si no se asigna en el inspector, buscarlo en el mismo objeto
         if (anim == null) anim = GetComponent<Animator>();
 
         audioSource = GetComponent<AudioSource>();
@@ -47,4 +47,5 @@ public class ButtonAnim : MonoBehaviour
             audioSource.PlayOneShot(clickSound);
         }
     }
+
 }

@@ -8,16 +8,20 @@ public class GlobalVariables : MonoBehaviour
     //La que quieres/se va a editar
     public static float xLimit = 5f;
     public static float yLimit = 5f;
+    public static bool gameOver = false;
     [Header("Límites horizontales del mapa")]
     public float inspectorXLimit = 5f;
     [Header("Límite vertical del mapa")]
     public float inspectorYLimit = 5000f;
+    [Header("GameOver")]
+    public bool inspectorGameOver = false;
 
     void Awake()
     {
         // Initialize the static variable from the Inspector value when the object awakes
         xLimit = inspectorXLimit;
         yLimit = inspectorYLimit;
+        gameOver = inspectorGameOver;
     }
 
     void OnValidate()
@@ -25,5 +29,6 @@ public class GlobalVariables : MonoBehaviour
         //Se actualiza si cambia el valor
         xLimit = inspectorXLimit;
         yLimit = inspectorYLimit;
+        gameOver = inspectorGameOver;
     }
 }
