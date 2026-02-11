@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -90,11 +91,6 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    private void SelectPlatforms()
-    {
-        // Este método sigue vacío, ya que la lógica está en SpawnPlatforms(). NOTA: Refactorizar
-    }
-
     private void SpawnPlatforms()
     {
         int spawnedCount = 0;
@@ -106,7 +102,7 @@ public class LevelGenerator : MonoBehaviour
             int attempts = 0;
 
             // Intentar seleccionar una plataforma basada en rareza y disponibilidad
-            while (selectedPlatform == null && attempts < maxAttemptsPerSpawn)
+            while (selectedPlatform == null && attempts < maxAttemptsPerSpawn)  
             {
                 // Primero, elegir un ID basado en rareza global
                 int selectedID = RandomizePlatform();
@@ -136,6 +132,15 @@ public class LevelGenerator : MonoBehaviour
 
             // Activar y posicionar
             selectedPlatform.PlatformPrefab.SetActive(true);
+
+
+            // Buscamos si la plataforma tiene el componente de moneda
+            PlatformCoin coinScript = selectedPlatform.PlatformPrefab.GetComponentInChildren<PlatformCoin>();
+            if (coinScript != null)
+            {
+                coinScript.TryReactivateCoin();
+            }
+
             float distanceToNextPlatform = UnityEngine.Random.Range(minDistanceFromPreviousPlatform, maxDistanceFromPreviousPlatform);
             float xPosition = UnityEngine.Random.Range(-GlobalVariables.xLimit, GlobalVariables.xLimit);
             Vector2 spawnPosition = new Vector2(xPosition, lastSpawnedPlatform.PlatformPrefab.transform.position.y + distanceToNextPlatform);
