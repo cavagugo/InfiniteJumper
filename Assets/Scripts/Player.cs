@@ -13,9 +13,14 @@ public class Player : MonoBehaviour
     private Animator animator;
     private bool facingRight = true;
 
+    // Variable para ajustar dónde se teletransporta el jugador ---
+    // (Esto evita conflictos con el GlobalVariables que usa el generador de nivel)
+    [SerializeField] private float screenBorder = 3f;
+    // ----------------------------------------------------------------------
+
     //Para seleccionar el input manager
     //HorizontalP1 es AD y HorizontalP2 es flechas del teclado
-    [SerializeField] private string horizontalAxis = "Horizontal"; 
+    [SerializeField] private string horizontalAxis = "Horizontal";
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +42,9 @@ public class Player : MonoBehaviour
         {
             Flip();
         }
+
+        // Revisar si se salió de la pantalla para teletransportarlo ---
+        CheckScreenWrap();
 
         if ((transform.position.y + maxDistanceFromCameraBeforeDeath) <= Camera.main.transform.position.y)
         {
@@ -60,5 +68,20 @@ public class Player : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+    }
+
+    // Función de Teletransporte ---
+    private void CheckScreenWrap()
+    {
+        // Si sale por la derecha, aparece en la izquierda
+        if (transform.position.x > screenBorder)
+        {
+            transform.position = new Vector3(-screenBorder, transform.position.y, transform.position.z);
+        }
+        // Si sale por la izquierda, aparece en la derecha
+        else if (transform.position.x < -screenBorder)
+        {
+            transform.position = new Vector3(screenBorder, transform.position.y, transform.position.z);
+        }
     }
 }
