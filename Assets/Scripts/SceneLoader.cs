@@ -19,14 +19,13 @@ public class SceneLoader : MonoBehaviour
 
     public void ExitGame()
     {
-        // Quits the application. This only works in a built game (e.g., .exe).
-        // It is ignored in the Unity Editor's Play Mode.
+        //Sale de la aplicación (solo build del juego)
+        // Es ignorado en el Play Mode del editor de Unity
         Application.Quit();
 
-        // Optional: Add a debug log to confirm the function is called in the editor
         Debug.Log("Game is exiting");
 
-        // Optional: Code to stop play mode in the Editor (for testing)
+        // Detiene el editor (para testeo)
         #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
         #endif

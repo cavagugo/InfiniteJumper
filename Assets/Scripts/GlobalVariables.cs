@@ -9,6 +9,7 @@ public class GlobalVariables : MonoBehaviour
     public static float xLimit = 5f;
     public static float yLimit = 5f;
     public static bool gameOver = false;
+    public static int coins;
     [Header("Límites horizontales del mapa")]
     public float inspectorXLimit = 5f;
     [Header("Límite vertical del mapa")]

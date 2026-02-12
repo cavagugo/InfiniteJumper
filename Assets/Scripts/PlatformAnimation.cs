@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlatformAnimation : MonoBehaviour
 {
     [Header("Configuración de Audio")]
-    [SerializeField] private AudioClip jumpSound; // Aquí arrastrarás tu sonido
+    [SerializeField] private AudioClip jumpSound;
     private AudioSource audioSource;
 
     [Header("Configuración de Salto")]
@@ -29,7 +29,7 @@ public class PlatformAnimation : MonoBehaviour
                 anim.SetBool("rebotar", true);
             }
 
-            // --- NUEVO: Reproducir sonido ---
+            // Reproducir sonido 
             if (audioSource != null && jumpSound != null)
             {
                 audioSource.PlayOneShot(jumpSound);

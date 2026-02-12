@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     private bool facingRight = true;
 
     //Para seleccionar el input manager
+    //HorizontalP1 es AD y HorizontalP2 es flechas del teclado
     [SerializeField] private string horizontalAxis = "Horizontal"; 
 
     // Start is called before the first frame update
@@ -22,7 +23,6 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         // Usa el eje personalizado

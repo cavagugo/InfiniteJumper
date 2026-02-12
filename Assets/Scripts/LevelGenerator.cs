@@ -151,7 +151,7 @@ public class LevelGenerator : MonoBehaviour
             spawnedCount++;
         }
 
-        // Log opcional para verificar cuántas se spawnearon
+        // Log para verificar cuántas se spawnearon
         if (spawnedCount < numPlatformsToSpawn)
         {
             Debug.Log($"Se spawnearon {spawnedCount} plataformas en lugar de {numPlatformsToSpawn}.");
