@@ -35,7 +35,7 @@ public class LevelGenerator : MonoBehaviour
         if (automaticPlatforms)
         {
             platformTypes = Resources.LoadAll<PlatformsSO>("Platforms").ToList();
-        }        
+        }
 
         // Inicializar object pool
         InitializePool();
@@ -106,7 +106,7 @@ public class LevelGenerator : MonoBehaviour
             int attempts = 0;
 
             // Intentar seleccionar una plataforma basada en rareza y disponibilidad
-            while (selectedPlatform == null && attempts < maxAttemptsPerSpawn)  
+            while (selectedPlatform == null && attempts < maxAttemptsPerSpawn)
             {
                 // Primero, elegir un ID basado en rareza global
                 int selectedID = RandomizePlatform();
@@ -139,10 +139,14 @@ public class LevelGenerator : MonoBehaviour
 
 
             // Buscamos si la plataforma tiene el componente de moneda
-            PlatformCoin coinScript = selectedPlatform.PlatformPrefab.GetComponentInChildren<PlatformCoin>();
-            if (coinScript != null)
+            // Solo activar lógica de monedas si es la plataforma básica (ID 0) ---
+            if (selectedPlatform.ID == 0)
             {
-                coinScript.TryReactivateCoin();
+                PlatformCoin coinScript = selectedPlatform.PlatformPrefab.GetComponentInChildren<PlatformCoin>();
+                if (coinScript != null)
+                {
+                    coinScript.TryReactivateCoin();
+                }
             }
 
             float distanceToNextPlatform = UnityEngine.Random.Range(minDistanceFromPreviousPlatform, maxDistanceFromPreviousPlatform);

@@ -750,6 +750,7 @@ MonoBehaviour:
   inspectorXLimit: 5
   inspectorYLimit: 5000
   inspectorGameOver: 0
+  verMonedasAqui: 0
 --- !u!114 &366524707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10339,6 +10340,14 @@ PrefabInstance:
     - target: {fileID: 7319565036560707245, guid: c5abf980d7f1de740825812af2238731, type: 3}
       propertyPath: screenBorder
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319565036560707245, guid: c5abf980d7f1de740825812af2238731, type: 3}
+      propertyPath: levitationForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7319565036560707245, guid: c5abf980d7f1de740825812af2238731, type: 3}
+      propertyPath: levitationDuration
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

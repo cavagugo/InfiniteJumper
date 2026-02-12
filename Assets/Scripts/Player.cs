@@ -13,16 +13,22 @@ public class Player : MonoBehaviour
     private Animator animator;
     private bool facingRight = true;
 
-    // Variable para ajustar dónde se teletransporta el jugador ---
-    // (Esto evita conflictos con el GlobalVariables que usa el generador de nivel)
+    // --- Variable para ajustar dónde se teletransporta el jugador ---
     [SerializeField] private float screenBorder = 3f;
-    // ----------------------------------------------------------------------
 
-    //Para seleccionar el input manager
-    //HorizontalP1 es AD y HorizontalP2 es flechas del teclado
+    //Variables para el PowerUp de Levitación ---
+    [Header("Power Up - Levitación")]
+    [SerializeField] private float levitationDuration = 10f; // Cuánto dura volando
+    [SerializeField] private float levitationForce = 15f;   // Qué tan rápido sube
+    private bool isLevitating = false;
+
+    // Propiedad pública para que la moneda sepa si volamos ---
+    // Esto permite leer la variable, pero no cambiarla desde fuera
+    public bool IsLevitating => isLevitating;
+
+    // Para seleccionar el input manager
     [SerializeField] private string horizontalAxis = "Horizontal";
 
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -43,13 +49,13 @@ public class Player : MonoBehaviour
             Flip();
         }
 
-        // Revisar si se salió de la pantalla para teletransportarlo ---
+        // Revisar si se salió de la pantalla para teletransportarlo
         CheckScreenWrap();
 
         if ((transform.position.y + maxDistanceFromCameraBeforeDeath) <= Camera.main.transform.position.y)
         {
             gameObject.SetActive(false);
-            gameManager.GameOver();
+            if (gameManager != null) gameManager.GameOver();
             Debug.Log("Perdiste.");
         }
     }
@@ -58,6 +64,14 @@ public class Player : MonoBehaviour
     {
         Vector2 velocity = rb.velocity;
         velocity.x = movement;
+
+        // Lógica de Vuelo ---
+        // Si tiene el poder activado, forzamos la velocidad hacia arriba
+        if (isLevitating)
+        {
+            velocity.y = levitationForce;
+        }
+
         rb.velocity = velocity;
     }
 
@@ -70,18 +84,41 @@ public class Player : MonoBehaviour
         transform.localScale = scale;
     }
 
-    // Función de Teletransporte ---
+    // Función de Teletransporte
     private void CheckScreenWrap()
     {
-        // Si sale por la derecha, aparece en la izquierda
         if (transform.position.x > screenBorder)
         {
             transform.position = new Vector3(-screenBorder, transform.position.y, transform.position.z);
         }
-        // Si sale por la izquierda, aparece en la derecha
         else if (transform.position.x < -screenBorder)
         {
             transform.position = new Vector3(screenBorder, transform.position.y, transform.position.z);
         }
+    }
+
+    // --- Funciones para activar el PowerUp ---
+    // Esta función la llama el script de la moneda (PickItem)
+    public void ActivateLevitation()
+    {
+        StartCoroutine(LevitationRoutine());
+    }
+
+    // Rutina que maneja el tiempo del poder
+    IEnumerator LevitationRoutine()
+    {
+        isLevitating = true;
+
+        // CAMBIO DE COLOR POWERUP: Cambiar color a amarillo ---
+        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
+        if (renderer != null) renderer.color = Color.yellow;
+
+        yield return new WaitForSeconds(levitationDuration);
+
+        isLevitating = false;
+
+        // --- REGRESAR AL COLOR NORMAL ---
+        if (renderer != null) renderer.color = Color.white;
+
     }
 }
