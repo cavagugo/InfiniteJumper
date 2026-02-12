@@ -44,6 +44,9 @@ TagManager:
   - name: Platforms
     uniqueID: 2283433483
     locked: 0
+  - name: Coins
+    uniqueID: 3512480425
+    locked: 0
   - name: Player
     uniqueID: 2860286359
     locked: 0

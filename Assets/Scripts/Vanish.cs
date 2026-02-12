@@ -22,9 +22,10 @@ public class Vanish : MonoBehaviour
         // Resetear todo para que la plataforma sea funcional de nuevo
         isVanishing = false;
         if (platCollider != null) platCollider.enabled = true;
-
-        // Regresar el Animator al estado inicial (Idle)
-        if (animator != null) animator.Play("Idle", 0, 0f);
+        //Resetear la animación
+        animator.Rebind();
+        animator.Play("VanishPlatform_Idle", 0, 0f);
+        animator.Update(0f);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -46,10 +47,7 @@ public class Vanish : MonoBehaviour
         // 1. Disparar animación
         if (animator != null) animator.SetTrigger(vanishTrigger);
 
-        // 2. Desactivar colisiones inmediatamente para que no salte dos veces
-        if (platCollider != null) platCollider.enabled = false;
-
-        // 3. Esperar a que termine el efecto visual
+        // 2. Esperar a que termine el efecto visual
         yield return new WaitForSeconds(delayBeforeDisable);
 
         // 4. Desactivar objeto para el Object Pooling

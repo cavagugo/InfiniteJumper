@@ -20,6 +20,7 @@ public class LevelGenerator : MonoBehaviour
     private PlatformsSO lastSpawnedPlatform;
     private Queue<PlatformsSO> platformPool = new Queue<PlatformsSO>();
     private List<PlatformsSO> activePlatforms = new List<PlatformsSO>();
+    [SerializeField] private bool automaticPlatforms = true;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,10 @@ public class LevelGenerator : MonoBehaviour
         lastSpawnedPlatform = firstPlatSO;
         activePlatforms.Add(firstPlatSO);
 
-        platformTypes = Resources.LoadAll<PlatformsSO>("Platforms").ToList();
+        if (automaticPlatforms)
+        {
+            platformTypes = Resources.LoadAll<PlatformsSO>("Platforms").ToList();
+        }        
 
         // Inicializar object pool
         InitializePool();

@@ -10087,6 +10087,7 @@ MonoBehaviour:
   maxDistanceFromPreviousPlatform: 3
   removeDistanceBelowCamera: 5
   maxPlatformID: 2
+  automaticPlatforms: 1
 --- !u!1 &2085860146
 GameObject:
   m_ObjectHideFlags: 0
