@@ -18,8 +18,8 @@ public class Player : MonoBehaviour
 
     //Variables para el PowerUp de Levitación ---
     [Header("Power Up - Levitación")]
-    [SerializeField] private float levitationDuration = 10f; // Cuánto dura volando
-    [SerializeField] private float levitationForce = 15f;   // Qué tan rápido sube
+    [SerializeField] private float levitationDuration = 5f; // Cuánto dura volando
+    [SerializeField] private float levitationForce = 10f;   // Qué tan rápido sube
     private bool isLevitating = false;
 
     // Propiedad pública para que la moneda sepa si volamos ---
@@ -109,11 +109,36 @@ public class Player : MonoBehaviour
     {
         isLevitating = true;
 
-        // CAMBIO DE COLOR POWERUP: Cambiar color a amarillo ---
+        // CAMBIO DE COLOR POWERUP: Cambiar a un efecto arcoiris ---
         SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-        if (renderer != null) renderer.color = Color.yellow;
+        float tiempoPasado = 0f;
+        float tiempoAviso = 1.5f;
 
-        yield return new WaitForSeconds(levitationDuration);
+        while (tiempoPasado < levitationDuration)
+        {
+            if (renderer != null)
+            {
+                float tiempoRestante = levitationDuration - tiempoPasado;
+                float saturacion = 0.8f; // Saturación normal del arcoíris
+
+                // Si estamos en los últimos 1.5 segundos, reducimos la saturación
+                if (tiempoRestante <= tiempoAviso)
+                {
+                    // Calculamos un factor de 0 a 1 basado en el tiempo restante
+                    float t = tiempoRestante / tiempoAviso;
+                    // t va de 1 (inicio del aviso) a 0 (final del powerup)
+                    saturacion = Mathf.Lerp(0f, 0.8f, t);
+                }
+
+                float hue = (tiempoPasado * 2f) % 1f;
+                renderer.color = Color.HSVToRGB(hue, saturacion, 1f);
+            }
+
+            // Sumamos el tiempo de este frame y esperamos al siguiente
+            tiempoPasado += Time.deltaTime;
+            yield return null;
+        }
+
 
         isLevitating = false;
 
