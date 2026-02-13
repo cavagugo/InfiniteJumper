@@ -8892,6 +8892,58 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1372355445144649691, guid: c5abf980d7f1de740825812af2238731, type: 3}
   m_PrefabInstance: {fileID: 6175480426472404414}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1764147995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1764147997}
+  - component: {fileID: 1764147996}
+  m_Layer: 0
+  m_Name: JetSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1764147996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764147995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35c98aa9573059439ea8d1257e27315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minHeightToStart: 50
+  warningPrefab: {fileID: 3619859045565424099, guid: 64613203cfdeb7b4b88f50d460259344, type: 3}
+  jetPrefab: {fileID: 870998627387148234, guid: 7803445f72a888f4fa2dc60d1765aa9c, type: 3}
+  warningDuration: 1
+  spawnInterval: 5
+  spawnXOffset: 10
+  minHeightOffset: -2
+  maxHeightOffset: 7
+--- !u!4 &1764147997
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764147995}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -6.1842694, y: 3.0662117, z: 0.07290921}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1831025653
 GameObject:
   m_ObjectHideFlags: 0
@@ -10448,3 +10500,4 @@ SceneRoots:
   - {fileID: 267621348}
   - {fileID: 1522002703}
   - {fileID: 2112185435}
+  - {fileID: 1764147997}
