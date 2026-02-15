@@ -869,7 +869,7 @@ Transform:
   m_GameObject: {fileID: 480984670}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 24.51, z: 0}
+  m_LocalPosition: {x: 0, y: 24.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -889,7 +889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e40aeaed819eaf4ab257af97bcd49a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxFactor: -0.03
+  parallaxFactor: -0.08
 --- !u!1 &679818207
 GameObject:
   m_ObjectHideFlags: 0
@@ -1475,7 +1475,7 @@ Transform:
   m_GameObject: {fileID: 789557762}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.92, y: 48.7, z: 0}
+  m_LocalPosition: {x: -0.92, y: 23.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2194,7 +2194,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 16, y: 58.93, z: 1}
+    m_Scale: {x: 16, y: 15, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -6301,7 +6301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e40aeaed819eaf4ab257af97bcd49a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxFactor: -0.04
+  parallaxFactor: -0.07
 --- !u!1 &831704101
 GameObject:
   m_ObjectHideFlags: 0
@@ -6399,7 +6399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e40aeaed819eaf4ab257af97bcd49a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxFactor: -0.02
+  parallaxFactor: -0.035
 --- !u!1 &867878054
 GameObject:
   m_ObjectHideFlags: 0
@@ -6695,6 +6695,11 @@ Transform:
   - {fileID: 1385319828}
   m_Father: {fileID: 1870416866}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &961698242 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1180004573755259841, guid: 5e030bc7d1e67c945bb52266b5e67d60, type: 3}
+  m_PrefabInstance: {fileID: 460826624970530339}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1053614143
 GameObject:
   m_ObjectHideFlags: 0
@@ -10079,7 +10084,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e40aeaed819eaf4ab257af97bcd49a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxFactor: -0.005
+  parallaxFactor: -0.03
 --- !u!1 &2062566269
 GameObject:
   m_ObjectHideFlags: 0
@@ -10124,15 +10129,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8323932e1639d145b7eaae9515b7774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shipTransform: {fileID: 961698242}
+  stopSpawningMargin: 2
+  minPlatformsPerLevel: 1
+  maxPlatformsPerLevel: 2
+  platformWidth: 1.5
   platformTypes: []
   numPlatformsToSpawn: 5
   firstPlatform: {fileID: 11400000, guid: 61a2b403cd72c5c41ab56896df75e3a2, type: 2}
   maxDistanceFromCameraBeforeSpawn: 5
   minDistanceFromPreviousPlatform: 1.5
-  maxDistanceFromPreviousPlatform: 3
+  maxDistanceFromPreviousPlatform: 2.3
   removeDistanceBelowCamera: 5
   maxPlatformID: 2
-  automaticPlatforms: 1
 --- !u!1 &2085860146
 GameObject:
   m_ObjectHideFlags: 0
@@ -10352,7 +10361,7 @@ Transform:
   m_GameObject: {fileID: 2112185434}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 300, z: 0}
+  m_LocalPosition: {x: 0, y: 170, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10434,7 +10443,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1180004573755259841, guid: 5e030bc7d1e67c945bb52266b5e67d60, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10
+      value: 333
       objectReference: {fileID: 0}
     - target: {fileID: 1180004573755259841, guid: 5e030bc7d1e67c945bb52266b5e67d60, type: 3}
       propertyPath: m_LocalPosition.z

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: VanishingPlatform
   m_EditorClassIdentifier: 
   prefab: {fileID: 6474204296876930145, guid: fde7ae9ef7bc1594c8169c8d5174d56c, type: 3}
-  platformRarity: 1
+  platformRarity: 5
   id: 1
