@@ -12,12 +12,6 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine(LoadAsync(sceneName));
     }
 
-    // Optional: Method to load a scene by its build index
-    public void LoadSceneByIndex(int sceneIndex)
-    {
-        SceneManager.LoadScene(sceneIndex);
-    }
-
 
     public void ExitGame()
     {

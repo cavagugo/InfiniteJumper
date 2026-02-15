@@ -1200,18 +1200,6 @@ MonoBehaviour:
           m_StringArgument: MenuStart
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2100533163}
-        m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
-        m_MethodName: SetTimeScale
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 1
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &777032755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10436,13 +10424,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 317033783397111428, guid: 5e030bc7d1e67c945bb52266b5e67d60, type: 3}
+      propertyPath: winSceneName
+      value: SingleWin
+      objectReference: {fileID: 0}
     - target: {fileID: 1180004573755259841, guid: 5e030bc7d1e67c945bb52266b5e67d60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1180004573755259841, guid: 5e030bc7d1e67c945bb52266b5e67d60, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.07
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1180004573755259841, guid: 5e030bc7d1e67c945bb52266b5e67d60, type: 3}
       propertyPath: m_LocalPosition.z
