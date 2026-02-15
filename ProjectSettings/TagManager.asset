@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Platforms
-  - 
+  - Transition
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Coins
     uniqueID: 3512480425
+    locked: 0
+  - name: Nave
+    uniqueID: 2314429709
     locked: 0
   - name: Player
     uniqueID: 2860286359

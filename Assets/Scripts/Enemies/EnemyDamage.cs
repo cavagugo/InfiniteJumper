@@ -11,11 +11,10 @@ public class EnemyDamage : MonoBehaviour
         {
             Debug.Log("¡Te atrapó un enemigo!");
 
-            // Desactivamos al jugador (igual que cuando cae al vacío)
+            GameManager gm = FindObjectOfType<GameManager>();
+            gm.GameOver();
+            // Desactivamos al jugador
             collision.gameObject.SetActive(false);
-
-            // Opcional: Aquí podrías llamar a SceneLoader para reiniciar el nivel
-            // FindObjectOfType<SceneLoader>().LoadSceneByName("NombreDeTuEscena");
         }
     }
 
@@ -24,8 +23,13 @@ public class EnemyDamage : MonoBehaviour
     {
         if (collision.GetComponent<Player>())
         {
+            GameManager gm = FindObjectOfType<GameManager>();
+            gm.GameOver();
+
             Debug.Log("¡Te atrapó un enemigo!");
             collision.gameObject.SetActive(false);
+            
+
         }
     }
 }

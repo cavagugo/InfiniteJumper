@@ -55,11 +55,14 @@ public class Player : MonoBehaviour
         if ((transform.position.y + maxDistanceFromCameraBeforeDeath) <= Camera.main.transform.position.y)
         {
             gameObject.SetActive(false);
-            if (gameManager != null) gameManager.GameOver();
+            Die();
             Debug.Log("Perdiste.");
         }
     }
-
+    public void Die()
+    {
+        if (gameManager != null) gameManager.GameOver();
+    }
     void FixedUpdate()
     {
         Vector2 velocity = rb.velocity;
