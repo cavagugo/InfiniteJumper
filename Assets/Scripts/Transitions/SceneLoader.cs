@@ -40,7 +40,7 @@ public class SceneLoader : MonoBehaviour
         aop.allowSceneActivation = false;
 
         // Transition: FADE-IN
-        layer.Show(0.5f, 0f);
+        layer.Show(1.1f, 0f);
         //layer.Show(fadeInTime, fadeInDelay);
 
         while (aop.progress < 0.9f || !layer.IsDone)
@@ -48,6 +48,6 @@ public class SceneLoader : MonoBehaviour
 
         aop.allowSceneActivation = true;
         // Transition: FADE-OUT
-        layer.Hide(0.5f, 0.25f);
+        layer.Hide(0.8f, 0.4f);
     }
 }
