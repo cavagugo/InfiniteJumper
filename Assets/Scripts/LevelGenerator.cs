@@ -32,6 +32,7 @@ public class LevelGenerator : MonoBehaviour
     private List<PlatformsSO> platformPool = new List<PlatformsSO>();
     private List<PlatformsSO> activePlatforms = new List<PlatformsSO>();
 
+    public int MaxPlatformID { get { return maxPlatformID; } set { maxPlatformID = value; } }
     void Start()
     {
         GameObject firstPlatGO = Instantiate(firstPlatform.PlatformPrefab, new Vector3(0, -3.3f, 0), Quaternion.identity);

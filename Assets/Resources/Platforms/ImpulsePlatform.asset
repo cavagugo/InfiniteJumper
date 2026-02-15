@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ImpulsePlatform
   m_EditorClassIdentifier: 
   prefab: {fileID: 2313871115358750065, guid: c5cf146910b6d7c48babbd92ec60a1b9, type: 3}
-  platformRarity: 50
+  platformRarity: 25
   id: 3
