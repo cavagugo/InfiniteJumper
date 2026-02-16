@@ -33,10 +33,17 @@ public class PickItem : MonoBehaviour
             {
                 GlobalVariables.coins = 0; // Resetear contador
 
-                if (playerScript != null)
+                //Buscamos a TODOS los jugadores en la escena
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+                foreach (GameObject p in players)
                 {
-                    playerScript.ActivateLevitation();
-                    Debug.Log("¡PowerUp Activado!");
+                    Player pScript = p.GetComponent<Player>();
+                    if (pScript != null)
+                    {
+                        pScript.ActivateLevitation();
+                        Debug.Log("¡PowerUp Activado para: " + p.name + "!");
+                    }
                 }
             }
 

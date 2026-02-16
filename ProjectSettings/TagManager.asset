@@ -57,3 +57,6 @@ TagManager:
   - name: Enemies
     uniqueID: 1920651803
     locked: 0
+  - name: Indicator
+    uniqueID: 2973686615
+    locked: 0

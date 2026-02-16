@@ -11,12 +11,13 @@ public class BalloonMovement : MonoBehaviour
     [Header("Explosión por Tiempo")]
     [Tooltip("Segundos que dura el globo antes de explotar solo")]
     [SerializeField] private float lifeTime = 8f;
+    [SerializeField] private AudioSource audioSource;
 
-    [Tooltip("Opcional: Arrastra aquí un prefab de partículas de explosión")]
-    [SerializeField] private GameObject popEffect;
+    private Animator anim;
 
     void Start()
     {
+        anim = GetComponent<Animator>();
         // Iniciamos la cuenta regresiva para explotar
         StartCoroutine(PopBalloonRoutine());
     }
@@ -41,16 +42,17 @@ public class BalloonMovement : MonoBehaviour
 
         // --- MOMENTO DE LA EXPLOSIÓN ---
 
-        // 1. Si pusiste un efecto (partículas), lo creamos donde está el globo
-        if (popEffect != null)
+        if (anim != null)
         {
-            Instantiate(popEffect, transform.position, Quaternion.identity);
+            Collider2D col = GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;
+            anim.Play("Balloon_pop");
+            
         }
 
-        // 2. Opcional: Sonido de "PUM"
-        // AudioSource.PlayClipAtPoint(popSound, transform.position);
+        audioSource.Play();
 
-        // 3. Destruimos el globo
-        Destroy(gameObject);
+        //Destruimos el globo
+        Destroy(gameObject, 0.5f);
     }
 }

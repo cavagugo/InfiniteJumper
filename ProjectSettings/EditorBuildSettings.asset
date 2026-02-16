@@ -12,10 +12,19 @@ EditorBuildSettings:
     path: Assets/Scenes/SingleStart.unity
     guid: 1bebde8278d41944b93643fca8d8d168
   - enabled: 1
+    path: Assets/Scenes/MultiStart.unity
+    guid: 94d099b675370ec45b93cbfbc1823b28
+  - enabled: 1
     path: Assets/Scenes/GameSingleplayer.unity
     guid: 93051112d40fa124c932e7f68f191989
   - enabled: 1
+    path: Assets/Scenes/GameMultiplayer.unity
+    guid: d8c0f9ab105236d4caeccb11bca828ae
+  - enabled: 1
     path: Assets/Scenes/SingleWin.unity
-    guid: 5169bf0f738900f409515b8f69be6e5e
+    guid: a4d34717397df03419646a4f64781265
+  - enabled: 1
+    path: Assets/Scenes/MultiWin.unity
+    guid: f3d43962ff111a84f881d579e04cf5a4
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 250d24f35697d1a4d9b32fdfed37b145, type: 2}
