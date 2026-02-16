@@ -165,6 +165,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   destroyHeight: 20
+  lifeTime: 6
+  popEffect: {fileID: 0}
 --- !u!114 &714196715533407502
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -536,6 +536,73 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &293259145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 293259147}
+  - component: {fileID: 293259146}
+  m_Layer: 0
+  m_Name: MasterSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &293259146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293259145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f90806dc298b1498e9e95367b2d74a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listaDeEnemigos:
+  - nombre: Globo Rojo
+    prefab: {fileID: 6158986866574177023, guid: 14ff7aed08adc0f4a938098790431210, type: 3}
+    tipoDeSpawn: 1
+    alturaMinima: 0
+  - nombre: Basura
+    prefab: {fileID: 3321316412666739079, guid: 938ebf90d33714249b779d7103f284bb, type: 3}
+    tipoDeSpawn: 0
+    alturaMinima: 50
+  - nombre: Garza
+    prefab: {fileID: 3145400100110409434, guid: 22e7dee1aed5c6946b583022cbc147e1, type: 3}
+    tipoDeSpawn: 2
+    alturaMinima: 100
+  - nombre: Dron
+    prefab: {fileID: 2325831081264860440, guid: ed74a6cb1813b754ba1fb19836912a8d, type: 3}
+    tipoDeSpawn: 2
+    alturaMinima: 150
+  minSpawnTime: 3
+  maxSpawnTime: 6
+  offsetArriba: 7
+  offsetAbajo: 7
+  offsetLados: 11
+  limiteHorizontal: 8
+--- !u!4 &293259147
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 293259145}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &303750778
 GameObject:
   m_ObjectHideFlags: 0
@@ -9254,7 +9321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35c98aa9573059439ea8d1257e27315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minHeightToStart: 50
+  minHeightToStart: 150
   warningPrefab: {fileID: 3619859045565424099, guid: 64613203cfdeb7b4b88f50d460259344, type: 3}
   jetPrefab: {fileID: 870998627387148234, guid: 7803445f72a888f4fa2dc60d1765aa9c, type: 3}
   warningDuration: 2
@@ -10900,3 +10967,4 @@ SceneRoots:
   - {fileID: 1764147997}
   - {fileID: 460826624970530339}
   - {fileID: 1435361928}
+  - {fileID: 293259147}

@@ -6,20 +6,20 @@ public class JetSpawner : MonoBehaviour
 {
     [Header("Dificultad / Progresión")]
     [Tooltip("A qué altura (Y de la cámara) empiezan a salir los Jets")]
-    [SerializeField] private float minHeightToStart = 50f; // Decide a que altura de la camara iniciara(opcional)
+    [SerializeField] private float minHeightToStart = 10f; // Ajustado a tu captura
 
     [Header("Recursos")]
     [SerializeField] private GameObject warningPrefab;
     [SerializeField] private GameObject jetPrefab;
 
     [Header("Tiempos")]
-    [SerializeField] private float warningDuration = 1f;
+    [SerializeField] private float warningDuration = 2f; // Ajustado a tu captura
     [SerializeField] private float spawnInterval = 5f;
 
     [Header("Posición Relativa a la CÁMARA")]
     [SerializeField] private float spawnXOffset = 10f;
-    [SerializeField] private float minHeightOffset = -4f;
-    [SerializeField] private float maxHeightOffset = 4f;
+    [SerializeField] private float minHeightOffset = -2f; // Ajustado a tu captura
+    [SerializeField] private float maxHeightOffset = 7f;  // Ajustado a tu captura
 
     private Transform playerTransform;
 
@@ -33,23 +33,21 @@ public class JetSpawner : MonoBehaviour
 
     IEnumerator AttackLoop()
     {
-        // Esperamos un pequeño tiempo inicial para que cargue todo
         yield return new WaitForSeconds(1f);
 
         while (true)
         {
-            // Si la cámara aún está muy abajo, espera y no se hace nada.
+            // 1. ESPERAR ALTURA
             if (Camera.main.transform.position.y < minHeightToStart)
             {
-                // Espera 1 segundo y vuelve a checar
                 yield return new WaitForSeconds(1f);
-                continue; // "Continue" salta al siguiente ciclo del while sin ejecutar lo de abajo
+                continue;
             }
 
-            // Si ya paso la altura, se espera al intervalo de ataque
+            // 2. ESPERAR INTERVALO
             yield return new WaitForSeconds(spawnInterval);
 
-            // Ataca solo si el jugador sigue existiendo
+            // 3. LANZAR ATAQUE
             if (playerTransform != null)
             {
                 StartCoroutine(LaunchSequence());
@@ -59,25 +57,39 @@ public class JetSpawner : MonoBehaviour
 
     IEnumerator LaunchSequence()
     {
-        Vector3 cameraPos = Camera.main.transform.position;
-        float randomY = Random.Range(cameraPos.y + minHeightOffset, cameraPos.y + maxHeightOffset);
+        // 1. FOTO INSTANTÁNEA:
+        // Guardamos dónde está la cámara EN ESTE MOMENTO EXACTO.
+        // Aunque la cámara se mueva después, usaremos este valor guardado.
+        float currentCamY = Camera.main.transform.position.y;
+
+        // 2. CALCULAMOS LA ALTURA FIJA DEL ATAQUE
+        float attackY = Random.Range(currentCamY + minHeightOffset, currentCamY + maxHeightOffset);
 
         bool comingFromRight = Random.value > 0.5f;
         int direction = comingFromRight ? -1 : 1;
 
-        // Posiciones
-        float warningX = comingFromRight ? (spawnXOffset - 2f) : (-spawnXOffset + 2f);
-        Vector3 warningPos = new Vector3(warningX, randomY, 0);
+        // 3. POSICIONES (En el mundo real, NO en la cámara)
 
+        // Warning: Un poco adentro del borde
+        float warningX = comingFromRight ? (spawnXOffset - 2f) : (-spawnXOffset + 2f);
+        Vector3 warningPos = new Vector3(warningX, attackY, 0); // Z=0
+
+        // Jet: Afuera del borde
         float jetX = comingFromRight ? spawnXOffset : -spawnXOffset;
-        Vector3 jetSpawnPos = new Vector3(jetX, randomY, 0);
+        Vector3 jetSpawnPos = new Vector3(jetX, attackY, 0);
 
         // --- WARNING ---
+        // SIN PARENT (No ponemos a la cámara como papá).
+        // Se queda quieto en la posición del mundo donde nació.
         GameObject warning = Instantiate(warningPrefab, warningPos, Quaternion.identity);
+
         yield return new WaitForSeconds(warningDuration);
-        Destroy(warning);
+
+        if (warning != null) Destroy(warning);
 
         // --- JET ---
+        // El jet nace exactamente a la misma altura 'attackY' que calculamos al principio.
+        // Si el jugador saltó durante la espera, el jet pasará por debajo de él.
         GameObject jet = Instantiate(jetPrefab, jetSpawnPos, Quaternion.identity);
         JetEnemy jetScript = jet.GetComponent<JetEnemy>();
         if (jetScript != null) jetScript.Setup(direction);
