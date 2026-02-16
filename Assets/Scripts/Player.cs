@@ -112,10 +112,17 @@ public class Player : MonoBehaviour
     {
         isLevitating = true;
 
+        // --- DESACTIVAR COLISIONES ---
+        // Obtenemos el collider y lo desactivamos para ser inmune a todo
+        Collider2D playerCollider = GetComponent<Collider2D>();
+        if (playerCollider != null) playerCollider.enabled = false;
+        Debug.Log("Inmune");
+
         // CAMBIO DE COLOR POWERUP: Cambiar a un efecto arcoiris ---
         SpriteRenderer renderer = GetComponent<SpriteRenderer>();
         float tiempoPasado = 0f;
         float tiempoAviso = 1.5f;
+        bool colisionReactivada = false; // Control para reactivar el collider solo una vez
 
         while (tiempoPasado < levitationDuration)
         {
@@ -127,6 +134,15 @@ public class Player : MonoBehaviour
                 // Si estamos en los últimos 1.5 segundos, reducimos la saturación
                 if (tiempoRestante <= tiempoAviso)
                 {
+                    // --- REACTIVAR COLISIONES ---
+                    // Reactivamos el collider un poco antes de acabar (en el tiempo de aviso)
+                    if (!colisionReactivada)
+                    {
+                        if (playerCollider != null) playerCollider.enabled = true;
+                        colisionReactivada = true;
+                        Debug.Log("Vulnerable");
+                    }
+
                     // Calculamos un factor de 0 a 1 basado en el tiempo restante
                     float t = tiempoRestante / tiempoAviso;
                     // t va de 1 (inicio del aviso) a 0 (final del powerup)
@@ -145,8 +161,10 @@ public class Player : MonoBehaviour
 
         isLevitating = false;
 
+        // Nos aseguramos de que el collider esté activo al terminar, por si acaso
+        if (playerCollider != null) playerCollider.enabled = true;
+
         // --- REGRESAR AL COLOR NORMAL ---
         if (renderer != null) renderer.color = Color.white;
-
     }
 }
