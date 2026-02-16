@@ -20,9 +20,13 @@ public class DroneEnemy : MonoBehaviour
     private float timer = 0f;
     private bool hasDropped = false;
     private int escapeDirection = 0; // 1 derecha, -1 izquierda
+    private Animator anim;
 
     void Start()
     {
+        anim = GetComponent<Animator>();
+        if (anim != null) anim.Play("Dron_withbox");
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) playerTransform = player.transform;
 
@@ -74,6 +78,7 @@ public class DroneEnemy : MonoBehaviour
         }
 
         hasDropped = true;
+        if (anim != null) anim.Play("Dron_nobox");
         Debug.Log("¡Caja fuera! Iniciando escape...");
 
         // Decidir hacia dónde huir (hacia el borde más cercano)
