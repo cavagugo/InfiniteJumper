@@ -14,7 +14,7 @@ public class EnemyDamage : MonoBehaviour
             GameManager gm = FindObjectOfType<GameManager>();
             gm.GameOver();
             // Desactivamos al jugador
-            collision.gameObject.SetActive(false);
+            //collision.gameObject.SetActive(false);
         }
     }
 
@@ -27,7 +27,7 @@ public class EnemyDamage : MonoBehaviour
             gm.GameOver();
 
             Debug.Log("¡Te atrapó un enemigo!");
-            collision.gameObject.SetActive(false);
+            //collision.gameObject.SetActive(false);
             
 
         }

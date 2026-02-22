@@ -830,6 +830,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameOverScreen: {fileID: 379236388}
   BGM: {fileID: 1892601828}
+  deathDelay: 2
 --- !u!1 &379236388
 GameObject:
   m_ObjectHideFlags: 0

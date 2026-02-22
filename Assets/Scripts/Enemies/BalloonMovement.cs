@@ -19,7 +19,7 @@ public class BalloonMovement : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         // Iniciamos la cuenta regresiva para explotar
-        StartCoroutine(PopBalloonRoutine());
+        StartCoroutine(PopBalloonRoutine(lifeTime));
     }
 
     void Update()
@@ -35,10 +35,10 @@ public class BalloonMovement : MonoBehaviour
     }
 
     // Esta rutina espera el tiempo y luego explota el globo
-    IEnumerator PopBalloonRoutine()
+    IEnumerator PopBalloonRoutine(float life)
     {
         // Esperamos X segundos
-        yield return new WaitForSeconds(lifeTime);
+        yield return new WaitForSeconds(life);
 
         // --- MOMENTO DE LA EXPLOSIÓN ---
 
@@ -54,5 +54,14 @@ public class BalloonMovement : MonoBehaviour
 
         //Destruimos el globo
         Destroy(gameObject, 0.5f);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            float popTime = 0.2f;
+            StartCoroutine(PopBalloonRoutine(popTime));
+        }
     }
 }

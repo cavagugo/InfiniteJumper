@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public float maxDistanceFromCameraBeforeDeath = 5f;
     private Animator animator;
     private bool facingRight = true;
+    private bool isDead = false;
 
     // --- Variable para ajustar dónde se teletransporta el jugador ---
     [SerializeField] private float screenBorder = 3f;
@@ -52,15 +53,23 @@ public class Player : MonoBehaviour
         // Revisar si se salió de la pantalla para teletransportarlo
         CheckScreenWrap();
 
-        if ((transform.position.y + maxDistanceFromCameraBeforeDeath) <= Camera.main.transform.position.y)
+        if (!isDead && (transform.position.y + maxDistanceFromCameraBeforeDeath) <= Camera.main.transform.position.y)
         {
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
             Die();
             Debug.Log("Perdiste.");
         }
     }
     public void Die()
     {
+        isDead = true;
+        if (TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
+        {
+            rb.isKinematic = false; // Nos aseguramos de que le afecte la física un momento
+            rb.velocity = Vector2.zero;
+            rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse); // Impulso hacia arriba
+        }
+
         if (gameManager != null) gameManager.GameOver();
     }
     void FixedUpdate()
