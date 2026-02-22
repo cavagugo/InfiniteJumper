@@ -6,15 +6,21 @@ public class EnterToSkip : MonoBehaviour
 {
     [SerializeField] private string sceneName;
     [SerializeField] private SceneLoader sceneLoader;
+    private bool pressedOnce = false;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (!pressedOnce)
         {
-            sceneLoader.LoadSceneByName(sceneName);
-        }
-        else if (Input.GetKeyDown(KeyCode.KeypadEnter))
-        {
-            sceneLoader.LoadSceneByName(sceneName);
-        }
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                sceneLoader.LoadSceneByName(sceneName);
+                pressedOnce = true;
+            }
+            else if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                sceneLoader.LoadSceneByName(sceneName);
+                pressedOnce = true;
+            }
+        }        
     }
 }
