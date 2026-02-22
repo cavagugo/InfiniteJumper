@@ -9513,11 +9513,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35c98aa9573059439ea8d1257e27315, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minHeightToStart: 150
+  minHeightToStart: 120
+  heightToSwitchToLaika: 200
   warningPrefab: {fileID: 3619859045565424099, guid: 64613203cfdeb7b4b88f50d460259344, type: 3}
   jetPrefab: {fileID: 870998627387148234, guid: 7803445f72a888f4fa2dc60d1765aa9c, type: 3}
+  laikaPrefab: {fileID: 6554687550678735713, guid: a2725300c45a3ef498863976ec587b1c, type: 3}
   warningDuration: 2
-  spawnInterval: 5
+  spawnInterval: 7
   spawnXOffset: 10
   minHeightOffset: -2
   maxHeightOffset: 7
@@ -10525,7 +10527,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2024927974
 RectTransform:
   m_ObjectHideFlags: 0

@@ -6,20 +6,24 @@ public class JetSpawner : MonoBehaviour
 {
     [Header("Dificultad / Progresión")]
     [Tooltip("A qué altura (Y de la cámara) empiezan a salir los Jets")]
-    [SerializeField] private float minHeightToStart = 10f; // Ajustado a tu captura
+    [SerializeField] private float minHeightToStart = 10f;
+
+    [Tooltip("Altura a la que Laika reemplaza a los Jets")]
+    [SerializeField] private float heightToSwitchToLaika = 100f;
 
     [Header("Recursos")]
     [SerializeField] private GameObject warningPrefab;
     [SerializeField] private GameObject jetPrefab;
+    [SerializeField] private GameObject laikaPrefab;
 
     [Header("Tiempos")]
-    [SerializeField] private float warningDuration = 2f; // Ajustado a tu captura
+    [SerializeField] private float warningDuration = 2f;
     [SerializeField] private float spawnInterval = 5f;
 
     [Header("Posición Relativa a la CÁMARA")]
     [SerializeField] private float spawnXOffset = 10f;
-    [SerializeField] private float minHeightOffset = -2f; // Ajustado a tu captura
-    [SerializeField] private float maxHeightOffset = 7f;  // Ajustado a tu captura
+    [SerializeField] private float minHeightOffset = -2f;
+    [SerializeField] private float maxHeightOffset = 7f;
 
     private Transform playerTransform;
 
@@ -37,7 +41,7 @@ public class JetSpawner : MonoBehaviour
 
         while (true)
         {
-            // 1. ESPERAR ALTURA
+            // 1. ESPERAR ALTURA INICIAL
             if (Camera.main.transform.position.y < minHeightToStart)
             {
                 yield return new WaitForSeconds(1f);
@@ -57,41 +61,42 @@ public class JetSpawner : MonoBehaviour
 
     IEnumerator LaunchSequence()
     {
-        // 1. FOTO INSTANTÁNEA:
-        // Guardamos dónde está la cámara EN ESTE MOMENTO EXACTO.
-        // Aunque la cámara se mueva después, usaremos este valor guardado.
+        // Guardamos la altura de la cámara
         float currentCamY = Camera.main.transform.position.y;
 
-        // 2. CALCULAMOS LA ALTURA FIJA DEL ATAQUE
+        // Calculamos la altura del ataque
         float attackY = Random.Range(currentCamY + minHeightOffset, currentCamY + maxHeightOffset);
 
         bool comingFromRight = Random.value > 0.5f;
         int direction = comingFromRight ? -1 : 1;
 
-        // 3. POSICIONES (En el mundo real, NO en la cámara)
-
-        // Warning: Un poco adentro del borde
+        // Posiciones
         float warningX = comingFromRight ? (spawnXOffset - 2f) : (-spawnXOffset + 2f);
-        Vector3 warningPos = new Vector3(warningX, attackY, 0); // Z=0
+        Vector3 warningPos = new Vector3(warningX, attackY, 0);
 
-        // Jet: Afuera del borde
         float jetX = comingFromRight ? spawnXOffset : -spawnXOffset;
         Vector3 jetSpawnPos = new Vector3(jetX, attackY, 0);
 
         // --- WARNING ---
-        // SIN PARENT (No ponemos a la cámara como papá).
-        // Se queda quieto en la posición del mundo donde nació.
         GameObject warning = Instantiate(warningPrefab, warningPos, Quaternion.identity);
 
         yield return new WaitForSeconds(warningDuration);
 
         if (warning != null) Destroy(warning);
 
-        // --- JET ---
-        // El jet nace exactamente a la misma altura 'attackY' que calculamos al principio.
-        // Si el jugador saltó durante la espera, el jet pasará por debajo de él.
-        GameObject jet = Instantiate(jetPrefab, jetSpawnPos, Quaternion.identity);
-        JetEnemy jetScript = jet.GetComponent<JetEnemy>();
+        // --- ELECCIÓN DE PREFAB ---
+        // Por defecto usamos el jet
+        GameObject prefabToUse = jetPrefab;
+
+        // Si superamos la altura y asignaste a Laika en el Inspector, la cambiamos
+        if (currentCamY >= heightToSwitchToLaika && laikaPrefab != null)
+        {
+            prefabToUse = laikaPrefab;
+        }
+
+        // --- SPAWN DEL ENEMIGO ---
+        GameObject enemyToSpawn = Instantiate(prefabToUse, jetSpawnPos, Quaternion.identity);
+        JetEnemy jetScript = enemyToSpawn.GetComponent<JetEnemy>();
         if (jetScript != null) jetScript.Setup(direction);
     }
 }
