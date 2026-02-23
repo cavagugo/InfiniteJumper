@@ -13,6 +13,10 @@ public class EnemyMasterSpawner : MonoBehaviour
         public GameObject prefab;
         public SpawnType tipoDeSpawn;
         public float alturaMinima;
+
+        [Header("Evolución Espacial (Opcional)")]
+        public GameObject prefabAvanzado;
+        public float alturaParaAvanzado;
     }
 
     [Header("Lista de Enemigos")]
@@ -95,44 +99,46 @@ public class EnemyMasterSpawner : MonoBehaviour
 
             case SpawnType.DesdeLosLados:
                 float lado = (Random.value > 0.5f) ? 1f : -1f;
-                // Variación vertical aleatoria entre -4 y 4 para que no siempre sea al centro
                 spawnPos = new Vector3(lado * offsetLados, currentCameraY + Random.Range(-4f, 4f), 0);
                 break;
         }
 
-        currentEnemy = Instantiate(elegido.prefab, spawnPos, Quaternion.identity);
+        // --- SISTEMA DE EVOLUCIÓN ---
+        // Por defecto usamos el prefab normal
+        GameObject prefabFinal = elegido.prefab;
+
+        // Si configuraste un prefab avanzado y ya superamos la altura necesaria, lo cambiamos
+        if (elegido.prefabAvanzado != null && currentCameraY >= elegido.alturaParaAvanzado)
+        {
+            prefabFinal = elegido.prefabAvanzado;
+        }
+
+        currentEnemy = Instantiate(prefabFinal, spawnPos, Quaternion.identity);
     }
 
     // --- MAGIA VISUAL ---
     private void OnDrawGizmosSelected()
     {
-        // Solo dibujamos si existe una cámara principal para usar de referencia
         Camera cam = Camera.main;
         if (cam == null) return;
 
         Vector3 camPos = cam.transform.position;
 
-        // DIBUJAR LÍNEA DE SPAWN ARRIBA (VERDE)
         Gizmos.color = Color.green;
         Vector3 topLeft = new Vector3(-limiteHorizontal, camPos.y + offsetArriba, 0);
         Vector3 topRight = new Vector3(limiteHorizontal, camPos.y + offsetArriba, 0);
         Gizmos.DrawLine(topLeft, topRight);
-        Gizmos.DrawSphere(new Vector3(0, camPos.y + offsetArriba, 0), 0.5f); // Punto central
+        Gizmos.DrawSphere(new Vector3(0, camPos.y + offsetArriba, 0), 0.5f);
 
-        // DIBUJAR LÍNEA DE SPAWN ABAJO (ROJA)
         Gizmos.color = Color.red;
         Vector3 botLeft = new Vector3(-limiteHorizontal, camPos.y - offsetAbajo, 0);
         Vector3 botRight = new Vector3(limiteHorizontal, camPos.y - offsetAbajo, 0);
         Gizmos.DrawLine(botLeft, botRight);
 
-        // DIBUJAR PUNTOS LATERALES (AZULES)
         Gizmos.color = Color.cyan;
-        // Izquierda
         Gizmos.DrawWireSphere(new Vector3(-offsetLados, camPos.y, 0), 1f);
-        // Derecha
         Gizmos.DrawWireSphere(new Vector3(offsetLados, camPos.y, 0), 1f);
 
-        // Conectar los puntos laterales con el centro para ver la distancia
         Gizmos.DrawLine(new Vector3(-offsetLados, camPos.y, 0), camPos);
         Gizmos.DrawLine(new Vector3(offsetLados, camPos.y, 0), camPos);
     }

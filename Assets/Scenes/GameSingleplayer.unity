@@ -570,18 +570,26 @@ MonoBehaviour:
     prefab: {fileID: 6158986866574177023, guid: 14ff7aed08adc0f4a938098790431210, type: 3}
     tipoDeSpawn: 1
     alturaMinima: 0
+    prefabAvanzado: {fileID: 0}
+    alturaParaAvanzado: 0
   - nombre: Basura
     prefab: {fileID: 3321316412666739079, guid: 938ebf90d33714249b779d7103f284bb, type: 3}
     tipoDeSpawn: 0
     alturaMinima: 50
+    prefabAvanzado: {fileID: 0}
+    alturaParaAvanzado: 0
   - nombre: Garza
     prefab: {fileID: 3145400100110409434, guid: 22e7dee1aed5c6946b583022cbc147e1, type: 3}
     tipoDeSpawn: 2
     alturaMinima: 100
+    prefabAvanzado: {fileID: 6291172116721849644, guid: 822136a388f989d4d9a1384e581e39de, type: 3}
+    alturaParaAvanzado: 160
   - nombre: Dron
     prefab: {fileID: 2325831081264860440, guid: ed74a6cb1813b754ba1fb19836912a8d, type: 3}
     tipoDeSpawn: 2
     alturaMinima: 150
+    prefabAvanzado: {fileID: 0}
+    alturaParaAvanzado: 0
   minSpawnTime: 3
   maxSpawnTime: 6
   offsetArriba: 7
