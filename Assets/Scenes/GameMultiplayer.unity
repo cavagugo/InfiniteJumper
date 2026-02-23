@@ -570,18 +570,26 @@ MonoBehaviour:
     prefab: {fileID: 6158986866574177023, guid: 14ff7aed08adc0f4a938098790431210, type: 3}
     tipoDeSpawn: 1
     alturaMinima: 0
+    prefabAvanzado: {fileID: 0}
+    alturaParaAvanzado: 0
   - nombre: Basura
     prefab: {fileID: 3321316412666739079, guid: 938ebf90d33714249b779d7103f284bb, type: 3}
     tipoDeSpawn: 0
     alturaMinima: 50
+    prefabAvanzado: {fileID: 0}
+    alturaParaAvanzado: 0
   - nombre: Garza
     prefab: {fileID: 3145400100110409434, guid: 22e7dee1aed5c6946b583022cbc147e1, type: 3}
     tipoDeSpawn: 2
-    alturaMinima: 100
+    alturaMinima: 120
+    prefabAvanzado: {fileID: 6291172116721849644, guid: 822136a388f989d4d9a1384e581e39de, type: 3}
+    alturaParaAvanzado: 200
   - nombre: Dron
     prefab: {fileID: 2325831081264860440, guid: ed74a6cb1813b754ba1fb19836912a8d, type: 3}
     tipoDeSpawn: 2
     alturaMinima: 150
+    prefabAvanzado: {fileID: 0}
+    alturaParaAvanzado: 0
   minSpawnTime: 3
   maxSpawnTime: 6
   offsetArriba: 7
@@ -9615,8 +9623,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minHeightToStart: 150
+  heightToSwitchToLaika: 100
   warningPrefab: {fileID: 3619859045565424099, guid: 64613203cfdeb7b4b88f50d460259344, type: 3}
   jetPrefab: {fileID: 870998627387148234, guid: 7803445f72a888f4fa2dc60d1765aa9c, type: 3}
+  laikaPrefab: {fileID: 6554687550678735713, guid: a2725300c45a3ef498863976ec587b1c, type: 3}
   warningDuration: 2
   spawnInterval: 5
   spawnXOffset: 10
